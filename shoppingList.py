@@ -33,7 +33,7 @@ st.markdown(hide_st_style, unsafe_allow_html=True)
 #---PERIOD VALUES---#
 year = datetime.today().year
 month = datetime.today().month
-day = datetime.today().day + 4
+day = datetime.today().day
 months = list(calendar.month_name[1:])
 week_number = date(year, month, day).isocalendar()[1]
 week = Week(year, week_number)
