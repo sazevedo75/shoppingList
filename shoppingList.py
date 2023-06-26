@@ -85,7 +85,6 @@ if nav_menu == "History":
 
     for wk in range(52, 0, -1):
         weekNumber = str(year) + "W" + str(wk)
-        #weekNumber = annotated_text(annotation(f"{weekNumber}", "Week", background="light-blue" , font_family="Comic Sans MS", border="2px dashed blue"))
         with st.expander(label=f":sweat_drops: :green[{weekNumber}] ", expanded=False):
             for grocery in current_shopping_list:
                 if grocery["week"] == weekNumber:
