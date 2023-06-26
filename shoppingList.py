@@ -35,7 +35,7 @@ year = datetime.today().year
 month = datetime.today().month
 day = datetime.today().day
 months = list(calendar.month_name[1:])
-week_number = date(year, month, day).isocalendar()[1]
+week_number = date(year, month, day).isocalendar()[1] + "/" + year
 week = Week(year, week_number)
 week_plus1 = Week(year, week_number + 1)
 
@@ -74,7 +74,7 @@ if nav_menu == "Current Week":
                     st.checkbox(label = grocery["shopping_list"], value = grocery["bought"], 
                                 on_change=db.updateItem, args=(grocery, str(grocery["key"])))    
         else:
-            st.caption(f"You have not created a shopping list yet for week from Thursday {week.thursday()} to Wednesday {week_plus1.wednesday()}")
+            st.caption(f"You have not created a shopping list yet this week")
 
 
 #---HISTORY TAB---#

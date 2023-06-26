@@ -10,12 +10,12 @@ sl = deta.Base("shoppingList")
 #---SHOPPING LIST FUNCTIONS---#
 def enter_shopping_list_items(key, weeknumber, shopping_list, bought):
     """This function will add all items in the shopping_list dictionary and the week title to the database with the week number as a key. Will return None if successful. """
-    return sl.put({"key":str(key), "weeknumber":weeknumber, "shopping_list":shopping_list, "bought":bought})
+    return sl.put({"key":str(key), "weeknumber":str(weeknumber), "shopping_list":shopping_list, "bought":bought})
 
 
 def get_shopping_list(weeknumber):
     """Returns the entire shopping list item for a certain week based on the period. This period is the week title used in the function above."""
-    return sl.get({"weeknumber":int(weeknumber)})
+    return sl.get({"weeknumber":str(weeknumber)})
 
 def getAllItems():
     return sl.fetch().items
