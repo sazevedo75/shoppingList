@@ -2,7 +2,6 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
 from isoweek import Week
-import random
 
 #---BUILT-IN PYTHON MODULES
 from datetime import datetime, date
@@ -35,7 +34,7 @@ year = datetime.today().year
 month = datetime.today().month
 day = datetime.today().day
 months = list(calendar.month_name[1:])
-week_number = date(year, month, day).isocalendar()[1] + "/" + year
+week_number = date(year, month, day).isocalendar()[1]
 week = Week(year, week_number)
 week_plus1 = Week(year, week_number + 1)
 
@@ -49,8 +48,7 @@ nav_menu = option_menu(
 )
 
 if nav_menu == "Current Week":
-    st.header(f"Monday {week.monday()} to Sunday {week.sunday()}")
-
+    st.subheader(f"Monday {week.monday()} to Sunday {week.sunday()}")
 
     with st.form("entry_form", clear_on_submit=True):
                     
@@ -61,16 +59,16 @@ if nav_menu == "Current Week":
     if submitted:               
                 key = uuid.uuid4()
 
-                db.enter_shopping_list_items(key, week_number, shoppingList, False)
+                db.enter_shopping_list_items(key, week, shoppingList, False)
 
 
     with st.expander(label="List of Groceries", expanded=True):
         
         current_shopping_list = db.getAllItems()
-
+        
         if current_shopping_list:
             for grocery in current_shopping_list:
-                if grocery["weeknumber"] == week_number:
+                if grocery["week"] == str(week):
                     st.checkbox(label = grocery["shopping_list"], value = grocery["bought"], 
                                 on_change=db.updateItem, args=(grocery, str(grocery["key"])))    
         else:
@@ -84,7 +82,8 @@ if nav_menu == "History":
     current_shopping_list = db.getAllItems()
 
     for wk in range(52):
-        with st.expander(label=f"Semana {wk}", expanded=False):
+        weekNumber = str(year) + "W" + str(wk + 1)
+        with st.expander(label=f"Week: {weekNumber}", expanded=False):
             for grocery in current_shopping_list:
-                if grocery["weeknumber"] == wk:
+                if grocery["week"] == weekNumber:
                     st.checkbox(label = grocery["shopping_list"], value = grocery["bought"], disabled=True)    
