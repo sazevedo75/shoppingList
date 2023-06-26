@@ -1,6 +1,7 @@
 #---PIP PACKAGES---#
 import streamlit as st
 from streamlit_option_menu import option_menu
+from annotated_text import annotated_text, annotation
 from isoweek import Week
 
 #---BUILT-IN PYTHON MODULES
@@ -13,7 +14,7 @@ import db as db
 
 #---STREAMLIT SETTINGS---#
 pageTitle = "Weekly Shopping List App"
-pageIcon = ":pouch:"
+pageIcon = ":shopping_trolley:"
 layout = "centered"
 
 #---STREAMLIT PAGE CONFIG---#
@@ -48,6 +49,7 @@ nav_menu = option_menu(
 )
 
 if nav_menu == "Current Week":
+    #st.write(annotated_text(annotation(f"Monday {week.monday()} to Sunday {week.sunday()}", str(week), background="#00fff8" , color="black", font_family="Comic Sans MS", border="2px dashed blue")))
     st.subheader(f"Monday {week.monday()} to Sunday {week.sunday()}")
 
     with st.form("entry_form", clear_on_submit=True):
@@ -81,9 +83,10 @@ if nav_menu == "History":
 
     current_shopping_list = db.getAllItems()
 
-    for wk in range(52):
-        weekNumber = str(year) + "W" + str(wk + 1)
-        with st.expander(label=f"Week: {weekNumber}", expanded=False):
+    for wk in range(52, 0, -1):
+        weekNumber = str(year) + "W" + str(wk)
+        #weekNumber = annotated_text(annotation(f"{weekNumber}", "Week", background="light-blue" , font_family="Comic Sans MS", border="2px dashed blue"))
+        with st.expander(label=f":sweat_drops: :green[{weekNumber}] ", expanded=False):
             for grocery in current_shopping_list:
                 if grocery["week"] == weekNumber:
                     st.checkbox(label = grocery["shopping_list"], value = grocery["bought"], disabled=True)    
