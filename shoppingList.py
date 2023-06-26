@@ -1,7 +1,7 @@
 #---PIP PACKAGES---#
 import streamlit as st
 from streamlit_option_menu import option_menu
-from annotated_text import annotated_text, annotation
+#from annotated_text import annotated_text, annotation
 from isoweek import Week
 
 #---BUILT-IN PYTHON MODULES
